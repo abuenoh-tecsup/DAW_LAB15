@@ -4,6 +4,8 @@ import axios from "axios";
 import Header from "./Header";
 
 function FormProducto() {
+  const API_URL = import.meta.env.VITE_API_URL;
+  
   const [producto, setProducto] = useState({
     nombre: "",
     precio: "",
@@ -15,10 +17,10 @@ function FormProducto() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/v1/categorias")
+      .get(`${API_URL}/categorias`)
       .then((res) => setCategorias(res.data));
     if (id) {
-      axios.get(`http://localhost:8080/api/v1/productos/${id}`).then((res) =>
+      axios.get(`${API_URL}/productos/${id}`).then((res) =>
         setProducto({
           ...res.data,
           categoria: { id: res.data.categoria?.id || "" },
@@ -43,9 +45,9 @@ function FormProducto() {
       precio: parseFloat(producto.precio),
     };
     if (id) {
-      await axios.put(`http://localhost:8080/api/v1/productos/${id}`, payload);
+      await axios.put(`${API_URL}/productos/${id}`, payload);
     } else {
-      await axios.post("http://localhost:8080/api/v1/productos", payload);
+      await axios.post(`${API_URL}/productos`, payload);
     }
     navigate("/productos");
   };

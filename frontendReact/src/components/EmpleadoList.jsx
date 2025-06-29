@@ -4,16 +4,18 @@ import axios from "axios";
 import Header from "./Header";
 
 function EmpleadoList() {
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const [empleados, setEmpleados] = useState([]);
   const navigate = useNavigate();
 
   const cargarEmpleados = async () => {
-    const res = await axios.get("http://localhost:8080/api/v1/empleados");
+    const res = await axios.get(`${API_URL}/empleados`);
     setEmpleados(res.data);
   };
 
   const eliminarEmpleado = async (id) => {
-    await axios.delete(`http://localhost:8080/api/v1/empleados/${id}`);
+    await axios.delete(`${API_URL}/empleados/${id}`);
     cargarEmpleados();
   };
 

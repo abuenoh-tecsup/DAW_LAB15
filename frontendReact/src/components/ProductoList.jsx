@@ -4,16 +4,18 @@ import axios from "axios";
 import Header from "./Header";
 
 function ProductoList() {
+  const API_URL = import.meta.env.VITE_API_URL;
+  
   const [productos, setProductos] = useState([]);
   const navigate = useNavigate();
 
   const cargarProductos = async () => {
-    const res = await axios.get("http://localhost:8080/api/v1/productos");
+    const res = await axios.get(`${API_URL}/productos`);
     setProductos(res.data);
   };
 
   const eliminarProducto = async (id) => {
-    await axios.delete(`http://localhost:8080/api/v1/productos/${id}`);
+    await axios.delete(`${API_URL}/productos/${id}`);
     cargarProductos();
   };
 

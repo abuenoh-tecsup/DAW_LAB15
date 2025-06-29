@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import Header from "./Header";
 
 function FormEmpleado() {
+  const API_URL = import.meta.env.VITE_API_URL;
+  
   const [empleado, setEmpleado] = useState({
     nombre: "",
     apellido: "",
@@ -14,7 +16,7 @@ function FormEmpleado() {
 
   useEffect(() => {
     if (id) {
-      axios.get(`http://localhost:8080/api/v1/empleados/${id}`).then((res) => {
+      axios.get(`${API_URL}/empleados/${id}`).then((res) => {
         setEmpleado(res.data);
       });
     }
@@ -27,9 +29,9 @@ function FormEmpleado() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (id) {
-      await axios.put(`http://localhost:8080/api/v1/empleados/${id}`, empleado);
+      await axios.put(`${API_URL}/empleados/${id}`, empleado);
     } else {
-      await axios.post("http://localhost:8080/api/v1/empleados", empleado);
+      await axios.post(`${API_URL}/empleados`, empleado);
     }
     navigate("/");
   };

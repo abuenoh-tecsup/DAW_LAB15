@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import Header from "./Header";
 
 function FormCategoria() {
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const [categoria, setCategoria] = useState({
     nombre: "",
   });
@@ -13,7 +15,7 @@ function FormCategoria() {
   useEffect(() => {
     if (id) {
       axios
-        .get(`http://localhost:8080/api/v1/categorias/${id}`)
+        .get(`${API_URL}/categorias/${id}`)
         .then((res) => setCategoria(res.data));
     }
   }, [id]);
@@ -26,11 +28,11 @@ function FormCategoria() {
     e.preventDefault();
     if (id) {
       await axios.put(
-        `http://localhost:8080/api/v1/categorias/${id}`,
+        `${API_URL}/categorias/${id}`,
         categoria
       );
     } else {
-      await axios.post("http://localhost:8080/api/v1/categorias", categoria);
+      await axios.post(`${API_URL}/categorias`, categoria);
     }
     navigate("/categorias");
   };

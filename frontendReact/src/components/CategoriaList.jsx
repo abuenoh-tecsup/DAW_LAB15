@@ -4,16 +4,18 @@ import axios from "axios";
 import Header from "./Header";
 
 function CategoriaList() {
+  const API_URL = import.meta.env.VITE_API_URL;
+  
   const [categorias, setCategorias] = useState([]);
   const navigate = useNavigate();
 
   const cargarCategorias = async () => {
-    const res = await axios.get("http://localhost:8080/api/v1/categorias");
+    const res = await axios.get(`${API_URL}/categorias`);
     setCategorias(res.data);
   };
 
   const eliminarCategoria = async (id) => {
-    await axios.delete(`http://localhost:8080/api/v1/categorias/${id}`);
+    await axios.delete(`${API_URL}/categorias/${id}`);
     cargarCategorias();
   };
 
